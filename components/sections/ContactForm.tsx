@@ -61,7 +61,10 @@ export interface ContactFormHandle {
   switchTab: (tab: 'service' | 'issue') => void;
 }
 
-const ContactForm = forwardRef<ContactFormHandle, {}>((props, ref) => {
+// Define props interface
+interface ContactFormProps extends Record<string, never> {}
+
+const ContactForm = forwardRef<ContactFormHandle, ContactFormProps>((props, ref) => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<string>("service");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
