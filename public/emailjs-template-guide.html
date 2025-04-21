@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmailJS Template Guide for The Good Brothers Website</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #333; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+    h2 { color: #444; margin-top: 30px; }
+    pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    code { font-family: monospace; }
+    .note { background: #fffde7; padding: 15px; border-left: 4px solid #ffd600; margin: 20px 0; }
+    .important { background: #ffebee; padding: 15px; border-left: 4px solid #c62828; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>EmailJS Template Guide</h1>
+  <p>This document provides the correct EmailJS template structure for The Good Brothers website forms.</p>
+  
+  <div class="important">
+    <strong>IMPORTANT:</strong> Copy and paste the exact template below into your EmailJS template. This template supports all three form types: service requests, issue reports, and contact us forms.
+  </div>
+  
+  <h2>Step 1: Log in to EmailJS Dashboard</h2>
+  <p>Go to <a href="https://dashboard.emailjs.com/admin/templates" target="_blank">https://dashboard.emailjs.com/admin/templates</a> and create a new template or edit the existing one.</p>
+  
+  <h2>Step 2: Paste This Exact Template Content</h2>
+  <pre><code>&lt;h2&gt;{{subject}}&lt;/h2&gt;
+&lt;p&gt;From: {{form_source}}&lt;/p&gt;
+&lt;p&gt;Date: {{date}} at {{time}}&lt;/p&gt;
+
+{{#if_eq form_type "service_request"}}
+  &lt;!-- Service Request Details --&gt;
+  &lt;h3&gt;Service Request&lt;/h3&gt;
+  &lt;p&gt;&lt;strong&gt;Business:&lt;/strong&gt; {{business_name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; {{name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {{email}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Phone:&lt;/strong&gt; {{phone}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Location:&lt;/strong&gt; {{location}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Service Type:&lt;/strong&gt; {{service_type}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; {{additionalInfo}}&lt;/p&gt;
+{{/if_eq}}
+
+{{#if_eq form_type "issue_report"}}
+  &lt;!-- Issue Report Details --&gt;
+  &lt;h3&gt;Issue Report&lt;/h3&gt;
+  &lt;p&gt;&lt;strong&gt;Machine Location:&lt;/strong&gt; {{machine_location}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Machine ID:&lt;/strong&gt; {{machine_id}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Problem Type:&lt;/strong&gt; {{problem_type}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Reported By:&lt;/strong&gt; {{name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; {{email}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt; {{issueDescription}}&lt;/p&gt;
+{{/if_eq}}
+
+{{#if_eq form_type "contact_us"}}
+  &lt;!-- Contact Us Form Details --&gt;
+  &lt;h3&gt;General Contact Message&lt;/h3&gt;
+  &lt;p&gt;&lt;strong&gt;Name:&lt;/strong&gt; {{name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; 
+    {{#if email}}
+      {{email}}
+    {{else if email_address}}
+      {{email_address}}
+    {{else if user_email}}
+      {{user_email}}
+    {{else if contact_email}}
+      {{contact_email}}
+    {{else}}
+      [Email not captured - see message]
+    {{/if}}
+  &lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Subject:&lt;/strong&gt; {{subject}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Message:&lt;/strong&gt; {{message}}&lt;/p&gt;
+{{/if_eq}}
+
+&lt;!-- Fallback if no conditionals match --&gt;
+{{^if_eq form_type "service_request"}}
+  {{^if_eq form_type "issue_report"}}
+    {{^if_eq form_type "contact_us"}}
+      &lt;!-- Raw Message Content --&gt;
+      &lt;h3&gt;Form Data&lt;/h3&gt;
+      &lt;pre&gt;{{message}}&lt;/pre&gt;
+    {{/if_eq}}
+  {{/if_eq}}
+{{/if_eq}}</code></pre>
+
+  <h2>Step 3: Save Your Template</h2>
+  <p>Click "Save" to update your template. Ensure your template ID in the EmailJS dashboard matches the NEXT_PUBLIC_EMAILJS_TEMPLATE_ID in your environment variables.</p>
+  
+  <div class="note">
+    <strong>Note:</strong> The template uses EmailJS conditional syntax (<code>{{#if_eq}}</code>) to display different sections based on the form type. Make sure your conditionals match exactly - even extra spaces can cause issues.
+  </div>
+  
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li>
+      <strong>If fields are still missing in emails:</strong> Verify that your form is sending the correct field names that match this template
+      (e.g., <code>business_name</code>, <code>name</code>, <code>email</code>, etc.).
+    </li>
+    <li>
+      <strong>If conditionals aren't working:</strong> Make sure you're setting the <code>form_type</code> variable correctly in your code.
+      The supported values are <code>"service_request"</code>, <code>"issue_report"</code>, and <code>"contact_us"</code>.
+    </li>
+    <li>
+      <strong>For additional help:</strong> Check EmailJS's documentation on conditional templates at 
+      <a href="https://www.emailjs.com/docs/user-guide/templates/" target="_blank">https://www.emailjs.com/docs/user-guide/templates/</a>
+    </li>
+  </ul>
+</body>
+</html> 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmailJS Simple Template Setup</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #333; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+    h2 { color: #444; margin-top: 30px; }
+    pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    code { font-family: monospace; }
+    .note { background: #fffde7; padding: 15px; border-left: 4px solid #ffd600; margin: 20px 0; }
+    .steps { margin-left: 20px; }
+    .steps li { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <h1>EmailJS Simple Template Setup Guide</h1>
+  <p>This document provides instructions for setting up the EmailJS template to work with our direct HTML email approach.</p>
+  
+  <div class="note">
+    <strong>Important:</strong> This approach sends a complete HTML email directly from our code, bypassing most of EmailJS's template system.
+    We only need a minimal template in EmailJS that passes our HTML content through.
+  </div>
+  
+  <h2>EmailJS Template Setup Steps</h2>
+  <ol class="steps">
+    <li>
+      <strong>Log in to EmailJS dashboard</strong> at <a href="https://dashboard.emailjs.com/" target="_blank">https://dashboard.emailjs.com/</a>
+    </li>
+    <li>
+      <strong>Go to Email Templates</strong> and either create a new template or edit your existing one
+    </li>
+    <li>
+      <strong>Set a template name</strong> that matches what you've configured in your environment variables (NEXT_PUBLIC_EMAILJS_TEMPLATE_ID)
+    </li>
+    <li>
+      <strong>Use this minimal template code:</strong>
+      <pre><code>&lt;!-- This minimal template simply passes through our HTML email content --&gt;
+{{content}}</code></pre>
+    </li>
+    <li>
+      <strong>Alternative (if the minimal template doesn't work):</strong>
+      <pre><code>&lt;!-- Fallback template with basic structure and plaintext fallback --&gt;
+&lt;h1&gt;{{subject}}&lt;/h1&gt;
+
+{{content}}
+
+&lt;hr&gt;
+
+&lt;h3&gt;Plaintext Version:&lt;/h3&gt;
+&lt;pre&gt;{{message}}&lt;/pre&gt;</code></pre>
+    </li>
+    <li>
+      <strong>Save the template</strong> and make sure the template ID matches your NEXT_PUBLIC_EMAILJS_TEMPLATE_ID environment variable
+    </li>
+  </ol>
+  
+  <h2>How It Works</h2>
+  <p>
+    Our application now generates a complete HTML email in code and passes it to EmailJS in the <code>content</code> variable.
+    The minimal template above just outputs that HTML content directly. If EmailJS doesn't handle the HTML properly, the alternative
+    template provides a basic structure with a plaintext fallback.
+  </p>
+  
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li>
+      <strong>If emails are still not formatted properly:</strong> Check if your email client supports HTML emails and that
+      EmailJS is not stripping HTML content.
+    </li>
+    <li>
+      <strong>If you see HTML code in your emails:</strong> Your email client might be displaying the raw HTML instead of
+      rendering it. Try the alternative template approach.
+    </li>
+    <li>
+      <strong>If some email clients show HTML and others don't:</strong> This is normal, as not all email clients support
+      the same HTML features. Our approach includes a plaintext fallback for this reason.
+    </li>
+  </ul>
+</body>
+</html> 

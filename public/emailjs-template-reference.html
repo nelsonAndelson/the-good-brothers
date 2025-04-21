@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmailJS Template Reference</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #333; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+    h2 { color: #444; margin-top: 30px; }
+    pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    code { font-family: monospace; }
+    .note { background: #fffde7; padding: 15px; border-left: 4px solid #ffd600; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>EmailJS Template Reference Guide</h1>
+  <p>This document provides a reference for the EmailJS template variables used in The Good Brothers website forms.</p>
+  
+  <div class="note">
+    <strong>Important:</strong> This is only a reference guide. Paste this HTML structure into your EmailJS template, modifying as needed.
+  </div>
+  
+  <h2>Universal Template Structure</h2>
+  <p>The following template structure supports all form types from the website. It prioritizes the complete_message 
+  variable which contains all form data in a readable format, while also providing detailed conditional blocks as backup.</p>
+  
+  <pre><code>&lt;!-- Email Template for All Form Types --&gt;
+&lt;h2&gt;{{subject}}&lt;/h2&gt;
+&lt;p&gt;From: {{form_source}}&lt;/p&gt;
+&lt;p&gt;Date: {{date}} at {{time}}&lt;/p&gt;
+
+&lt;!-- Complete Message (works for all form types) --&gt;
+&lt;div&gt;
+  &lt;pre&gt;{{complete_message}}&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!-- Conditional Sections for Specific Form Types --&gt;
+{{#if_eq form_type "service_request"}}
+  &lt;!-- Service Request Details --&gt;
+  &lt;h3&gt;Service Request&lt;/h3&gt;
+  &lt;p&gt;&lt;strong&gt;Business:&lt;/strong&gt; {{business_name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; {{name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; {{email}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Phone:&lt;/strong&gt; {{phone}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Location:&lt;/strong&gt; {{location}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Service Type:&lt;/strong&gt; {{service_type}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; {{additionalInfo}}&lt;/p&gt;
+{{/if_eq}}
+
+{{#if_eq form_type "issue_report"}}
+  &lt;!-- Issue Report Details --&gt;
+  &lt;h3&gt;Issue Report&lt;/h3&gt;
+  &lt;p&gt;&lt;strong&gt;Machine Location:&lt;/strong&gt; {{machine_location}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Machine ID:&lt;/strong&gt; {{machine_id}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Problem Type:&lt;/strong&gt; {{problem_type}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Reported By:&lt;/strong&gt; {{name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Contact:&lt;/strong&gt; {{email}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt; {{issueDescription}}&lt;/p&gt;
+{{/if_eq}}
+
+{{#if_eq form_type "contact_us"}}
+  &lt;!-- Contact Us Form Details --&gt;
+  &lt;h3&gt;General Contact Message&lt;/h3&gt;
+  &lt;p&gt;&lt;strong&gt;Name:&lt;/strong&gt; {{name}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; 
+    {{#if email}}
+      {{email}}
+    {{else if email_address}}
+      {{email_address}}
+    {{else if user_email}}
+      {{user_email}}
+    {{else if contact_email}}
+      {{contact_email}}
+    {{else}}
+      [Email not captured - see message]
+    {{/if}}
+  &lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Subject:&lt;/strong&gt; {{subject}}&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Message:&lt;/strong&gt; {{message}}&lt;/p&gt;
+{{/if_eq}}</code></pre>
+
+  <h2>Alternative Simple Format</h2>
+  <p>If you experience issues with the template above, you can use this simpler format that relies only on the complete_message:</p>
+  
+  <pre><code>&lt;h2&gt;{{subject}}&lt;/h2&gt;
+&lt;p&gt;From: {{form_source}}&lt;/p&gt;
+&lt;p&gt;Date: {{date}} at {{time}}&lt;/p&gt;
+
+&lt;pre&gt;{{complete_message}}&lt;/pre&gt;</code></pre>
+
+  <h2>Variables Reference</h2>
+  <p>Below are the key variables available in all form submissions:</p>
+  
+  <pre><code>// Common to all forms
+subject             - Email subject line
+form_source         - Source of the form (website name)
+date                - Submission date
+time                - Submission time
+form_type           - Type of form (service_request, issue_report, contact_us)
+complete_message    - Formatted message with all details
+from_name           - Sender's name
+to_name             - Recipient's name
+reply_to            - Reply-to email address
+
+// Used in service_request forms
+business_name       - Business name
+name                - Contact name
+email               - Contact email
+phone               - Contact phone
+location            - Business location
+service_type        - Type of service requested
+additionalInfo      - Additional information
+
+// Used in issue_report forms
+machine_location    - Location of the machine
+machine_id          - ID of the machine
+problem_type        - Type of problem
+name                - Reporter's name
+email               - Reporter's contact email/info
+issueDescription    - Description of the issue</code></pre>
+
+</body>
+</html> 
