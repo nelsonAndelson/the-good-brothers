@@ -100,7 +100,7 @@ const ContactForm = forwardRef<ContactFormHandle, {}>((props, ref) => {
   });
 
   // Generic email sending function
-  const sendEmail = async (formData: Record<string, any>, formType: string, onSuccess: () => void) => {
+  const sendEmail = async (formData: Record<string, unknown>, formType: string, onSuccess: () => void) => {
     setIsSubmitting(true);
     
     try {
@@ -142,25 +142,25 @@ const ContactForm = forwardRef<ContactFormHandle, {}>((props, ref) => {
       if (formType === "service_request") {
         plainTextMessage = `
 Service Request Details:
-Business: ${formData.businessName || ""}
-Contact: ${formData.contactName || ""}
-Phone: ${formData.phone || ""}
-Email: ${formData.email || ""}
-Location: ${formData.location || ""}
-Service Type: ${getDisplayName(formData.serviceType, serviceTypeMap)}
+Business: ${formData.businessName as string || ""}
+Contact: ${formData.contactName as string || ""}
+Phone: ${formData.phone as string || ""}
+Email: ${formData.email as string || ""}
+Location: ${formData.location as string || ""}
+Service Type: ${getDisplayName(formData.serviceType as string, serviceTypeMap)}
 
-Additional Info: ${formData.additionalInfo || "None provided"}
+Additional Info: ${formData.additionalInfo as string || "None provided"}
         `;
       } else {
         plainTextMessage = `
 Issue Report Details:
-Machine Location: ${getDisplayName(formData.machineLocation, machineLocationMap)}
-Machine ID: ${formData.machineId || ""}
-Problem Type: ${getDisplayName(formData.problemType, problemTypeMap)}
-Reported By: ${formData.userName || ""}
-Contact: ${formData.contactInfo || ""}
+Machine Location: ${getDisplayName(formData.machineLocation as string, machineLocationMap)}
+Machine ID: ${formData.machineId as string || ""}
+Problem Type: ${getDisplayName(formData.problemType as string, problemTypeMap)}
+Reported By: ${formData.userName as string || ""}
+Contact: ${formData.contactInfo as string || ""}
 
-Description: ${formData.issueDescription || ""}
+Description: ${formData.issueDescription as string || ""}
         `;
       }
       
@@ -168,39 +168,39 @@ Description: ${formData.issueDescription || ""}
       const templateParams = {
         // Essential template variables
         subject: formType === "service_request" 
-          ? `New Service Request from ${formData.businessName}` 
-          : `Issue Report from ${formData.userName}`,
+          ? `New Service Request from ${formData.businessName as string}` 
+          : `Issue Report from ${formData.userName as string}`,
         form_source: "The Good Brothers Website",
         date: date,
         time: time,
         form_type: formType,
         
         // Direct field mappings that match the template variables
-        business_name: formData.businessName || "",
-        name: formType === "service_request" ? formData.contactName : formData.userName,
-        email: formType === "service_request" ? formData.email : formData.contactInfo,
-        phone: formData.phone || "",
-        location: formData.location || "",
-        service_type: getDisplayName(formData.serviceType, serviceTypeMap),
-        additionalInfo: formData.additionalInfo || "None provided",
+        business_name: (formData.businessName as string) || "",
+        name: formType === "service_request" ? (formData.contactName as string) : (formData.userName as string),
+        email: formType === "service_request" ? (formData.email as string) : (formData.contactInfo as string),
+        phone: (formData.phone as string) || "",
+        location: (formData.location as string) || "",
+        service_type: getDisplayName(formData.serviceType as string, serviceTypeMap),
+        additionalInfo: (formData.additionalInfo as string) || "None provided",
         
-        machine_location: getDisplayName(formData.machineLocation, machineLocationMap),
-        machine_id: formData.machineId || "",
-        problem_type: getDisplayName(formData.problemType, problemTypeMap),
-        issueDescription: formData.issueDescription || "",
+        machine_location: getDisplayName(formData.machineLocation as string, machineLocationMap),
+        machine_id: (formData.machineId as string) || "",
+        problem_type: getDisplayName(formData.problemType as string, problemTypeMap),
+        issueDescription: (formData.issueDescription as string) || "",
         
         // Include a complete message as fallback (important)
         message: plainTextMessage,
         
         // Standard EmailJS fields for compatibility
-        from_name: formType === "service_request" ? formData.contactName : formData.userName,
+        from_name: formType === "service_request" ? (formData.contactName as string) : (formData.userName as string),
         to_name: "The Good Brothers Team",
-        reply_to: formType === "service_request" ? formData.email : formData.contactInfo,
+        reply_to: formType === "service_request" ? (formData.email as string) : (formData.contactInfo as string),
         
         // Include multiple email formats for compatibility - this worked in ContactUs.tsx
-        email_address: formType === "service_request" ? formData.email : formData.contactInfo,
-        user_email: formType === "service_request" ? formData.email : formData.contactInfo,
-        contact_email: formType === "service_request" ? formData.email : formData.contactInfo
+        email_address: formType === "service_request" ? (formData.email as string) : (formData.contactInfo as string),
+        user_email: formType === "service_request" ? (formData.email as string) : (formData.contactInfo as string),
+        contact_email: formType === "service_request" ? (formData.email as string) : (formData.contactInfo as string)
       };
       
       // Log what we're sending
@@ -518,4 +518,7 @@ Description: ${formData.issueDescription || ""}
   );
 });
 
-export default ContactForm; 
+export default ContactForm;
+
+// Set display name
+ContactForm.displayName = 'ContactForm'; 

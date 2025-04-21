@@ -6,7 +6,6 @@ import ContactForm from '@/components/sections/ContactForm';
 import Mission from '@/components/sections/Mission';
 import UniquePoints from '@/components/sections/UniquePoints';
 import Products from '@/components/sections/Products';
-import YouthVending from '@/components/sections/YouthVending';
 import ReferralProgram from '@/components/sections/ReferralProgram';
 import ContactUs from '@/components/sections/ContactUs';
 

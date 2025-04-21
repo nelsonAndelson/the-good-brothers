@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import manySnacks from '@/public/products/snacks/many-snacks.png';
 import drinks from '@/public/products/drinks.png';
 
@@ -13,7 +13,6 @@ import dietPepsi from '@/public/products/diet-pepsi.png';
 import canadaDry from '@/public/products/canada-dry.png';
 import canadaDryBottle from '@/public/products/canda-dry-bottle.png';
 import deepParkWater from '@/public/products/deep-park-water.png';
-import drink2 from '@/public/products/drink2.png';
 import gatoradeBlue from '@/public/products/gatorade-blue.png';
 import mtnDew from '@/public/products/mtn-dew.png';
 import mtnDewBottle from '@/public/products/mtn-dew-bottle.png';
@@ -38,7 +37,7 @@ type ProductType = {
   name: string;
   category: 'candy' | 'drinks' | 'snacks';
   description: string;
-  image: any; // Using any for StaticImageData type
+  image: StaticImageData; // Using any for StaticImageData type
 };
 
 // Product data
