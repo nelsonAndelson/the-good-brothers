@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Entrepreneurs = () => {
   return (
@@ -23,27 +24,19 @@ const Entrepreneurs = () => {
               local youth entrepreneurship.
             </p>
             
-            <Link 
-              href="#about  " 
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md font-medium transition-colors mt-4"
-            >
-              Learn More About Our Mission
-            </Link>
+            
           </div>
           
           <div className="w-full md:w-2/5">
             <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
-              <video 
-                src="/Video-of-machine-with-Jahari-1.mp4"
-                className="w-full h-full object-cover"
-                controls
+              <Image 
+                src="/3siblings2.jpg"
+                alt="Th3 Good Broth3rs Siblings"
+                fill
+                className="object-cover"
+                priority
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-xs flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
-                Watch our story
-              </div>
+             
             </div>
           </div>
         </div>

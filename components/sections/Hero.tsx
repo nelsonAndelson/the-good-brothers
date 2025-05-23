@@ -48,7 +48,7 @@ const Hero = () => {
               
               <button 
                 onClick={() => scrollToForm('issue')} 
-                className="bg-white hover:bg-gray-50 text-gray-800 border border-gray-300 px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center"
+                className="bg-red-100 hover:bg-red-200 text-red-800 border border-red-200 px-6 py-3 rounded-md text-center font-medium transition-colors flex items-center justify-center"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <circle cx="12" cy="12" r="10"></circle>

@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
-import manySnacks from '@/public/products/snacks/many-snacks.png';
-import drinks from '@/public/products/drinks.png';
+import manySnacks from '@/public/th3goodbroth3rs-candy.jpg';
+import drinks from '@/public/th3goodbroth3rs-drinks.jpg';
 
 // Drink Images
 import pepsi from '@/public/products/pepsi.jpg';
@@ -25,6 +25,7 @@ import skittles from '@/public/products/snacks/skittles.png';
 import twix from '@/public/products/snacks/twix.jpg';
 import mmCookies from '@/public/products/snacks/m&m-cookies.png';
 import oreo from '@/public/products/snacks/oreo.png';
+import snacksCollection from '@/public/th3goodbroth3rs-snacks.jpg';
 import chexMix from '@/public/products/snacks/chex-mix.png';
 import laysClassic from '@/public/products/snacks/lays-classic.png';
 import doritosNachoCheese from '@/public/products/snacks/doritors-nacho-cheese.png';
@@ -111,7 +112,7 @@ const Products = () => {
             {/* Category 2 - Snacks */}
             <div className="relative overflow-hidden rounded-lg aspect-square shadow-md">
               <Image 
-                src={chexMix} 
+                src={snacksCollection} 
                 alt="Snacks" 
                 fill
                 className="object-cover transition-transform hover:scale-105"

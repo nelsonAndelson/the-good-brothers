@@ -7,12 +7,14 @@ const Mission = () => {
 
   const images = [
     {
-      src: '/boy-man-standing-vending-machine.jpeg',
-      alt: 'Young entrepreneurs at work',
-      caption: 'Our team delivering quality service to the community',
-      priority: true,
-      position: 'object-center'
+      type: 'video',
+      src: '/Video-of-machine-with-Jahari-1.mp4',
+      alt: 'Watch our story',
+      caption: 'Watch our story: How Th3 Good Broth3rs got started',
+      position: 'object-center',
+      priority: true
     },
+
     {
       src: '/boy-next-to-machine.jpeg',
       alt: 'Team members in action',
@@ -20,19 +22,18 @@ const Mission = () => {
       position: 'object-center'
     },
     {
-      src: '/3siblings-with-mom.jpg',
+      src: '/new-img-mom-pointing.jpg',
       alt: 'Community impact',
-            caption: 'Family-driven entrepreneurship making a difference',
-
+      caption: 'Family-driven entrepreneurship making a difference',
       position: 'object-top'
     },
     {
-      src: '/3siblings2.jpg',
-      alt: 'Family support',
-            caption: 'Building connections through entrepreneurship',
-
+      src: '/boy-man-standing-vending-machine.jpeg',
+      alt: 'Young entrepreneurs at work',
+      caption: 'Our team delivering quality service to the community',
+      priority: true,
       position: 'object-center'
-    }
+    },
   ];
 
   const handleImageLoad = () => {
@@ -57,19 +58,30 @@ const Mission = () => {
                 className="relative group overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
               >
                 <div className="relative pt-[75%] w-full">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className={`transition-transform duration-500 group-hover:scale-105 ${image.position}`}
-                    priority={image.priority}
-                    onLoad={handleImageLoad}
-                    quality={90}
-                  />
+                  {image.type === 'video' ? (
+                    <video
+                      src={image.src}
+                      className={`w-full h-full absolute top-0 left-0 object-cover rounded-xl ${image.position}`}
+                      controls
+                      onLoadedData={handleImageLoad}
+                    />
+                  ) : (
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className={`transition-transform duration-500 group-hover:scale-105 ${image.position}`}
+                      priority={image.priority}
+                      onLoad={handleImageLoad}
+                      quality={90}
+                    />
+                  )}
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end"
+                  style={{ pointerEvents: 'none' }}
+                >
                   <div className="p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-lg font-medium">{image.caption}</p>
                   </div>
@@ -78,11 +90,7 @@ const Mission = () => {
             ))}
           </div>
 
-          {imagesLoaded < images.length && (
-            <div className="text-gray-600">
-              Loading images... {imagesLoaded}/{images.length}
-            </div>
-          )}
+      
 
           <div className="mt-16">
             <div className="relative rounded-xl overflow-hidden shadow-2xl">
