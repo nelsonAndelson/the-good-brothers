@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 const Mission = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(0);
 
   const images = [
     {
@@ -36,9 +35,7 @@ const Mission = () => {
     },
   ];
 
-  const handleImageLoad = () => {
-    setImagesLoaded(prev => prev + 1);
-  };
+
 
   return (
     <section className="w-full py-16 bg-white">
@@ -63,7 +60,6 @@ const Mission = () => {
                       src={image.src}
                       className={`w-full h-full absolute top-0 left-0 object-cover rounded-xl ${image.position}`}
                       controls
-                      onLoadedData={handleImageLoad}
                     />
                   ) : (
                     <Image
@@ -74,7 +70,6 @@ const Mission = () => {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className={`transition-transform duration-500 group-hover:scale-105 ${image.position}`}
                       priority={image.priority}
-                      onLoad={handleImageLoad}
                       quality={90}
                     />
                   )}
