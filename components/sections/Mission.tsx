@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import Image from 'next/image';
 
 const Mission = () => {
@@ -34,8 +33,6 @@ const Mission = () => {
       position: 'object-center'
     },
   ];
-
-
 
   return (
     <section className="w-full py-16 bg-white">
